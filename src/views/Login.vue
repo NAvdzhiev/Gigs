@@ -3,7 +3,7 @@
         <v-card class="elevation-7">
             <v-card-text>
                 <h1 align="center" class="mt-7 mb-10">Login</h1>
-                <v-form @submit.prevent="onSubmit">
+                <v-form @submit.prevent="onSubmit" id="login-form">
                     <v-row>
                         <v-col cols="10" md="6" class="ml-auto mr-auto pa-0">
                             <v-text-field
@@ -22,14 +22,14 @@
                                 outlined
                                 placeholder="Password"
                                 dense
-                                type="text"
+                                type="password"
                                 id="password"
                                 v-model="password"
                             ></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row class="justify-center">
-                        <v-btn primary>Signin</v-btn>
+                        <v-btn type="submit" form="login-form" primary>Signin</v-btn>
                     </v-row>
                 </v-form>
             </v-card-text>

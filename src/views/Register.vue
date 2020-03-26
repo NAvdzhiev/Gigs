@@ -3,7 +3,7 @@
         <v-card class="elevation-7">
             <v-card-text>
                 <h1 align="center" class="mt-7 mb-10">Register</h1>
-                <v-form @submit.prevent="onSubmit">
+                <form @submit.prevent="onSubmit" id="register-form">
                     <v-row>
                         <v-col cols="10" md="6" class="ml-auto mr-auto pa-0">
                             <v-text-field
@@ -47,25 +47,25 @@
                                 placeholder="Confirm Password"
                                 dense
                                 type="password"
-                                id="confirm-password"
+                                id="confirmPassword"
                                 v-model="confirmPassword"
                             ></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col cols="10" md="6" class="ml-auto mr-auto pa-0">
-                            <v-select outlined dense :items="items" label="Country"></v-select>
+                            <v-select v-model="country" outlined dense :items="items" label="Country"></v-select>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col cols="10" md="6" class="ml-auto mr-auto pa-0">
-                            <v-checkbox :label="`Accept Terms of Usage`"></v-checkbox>
+                            <v-checkbox v-model="terms" :label="`Accept Terms of Usage`"></v-checkbox>
                         </v-col>
                     </v-row>
                     <v-row class="justify-center">
-                        <v-btn class="elevation-6" primary>Signup</v-btn>
+                        <v-btn type="submit" form="register-form" class="elevation-6" primary>Signup</v-btn>
                     </v-row>
-                </v-form>
+                </form>
             </v-card-text>
         </v-card>
     </v-container>
@@ -75,75 +75,92 @@
 export default {
     data() {
         return {
-            email: '',
+            email: "",
             age: null,
-            password: '',
-            confirmPassword: '',
-            country: 'Bulgaria',    
+            password: "",
+            confirmPassword: "",
+            roles: "",
+            country: "Bulgaria",
+            terms: false,
             items: [
-                'Albania',
-                'Andorra',
-                'Armenia',
-                'Austria',
-                'Azerbaijan',
-                'Belarus',
-                'Belgium',
-                'Bosnia and Herzegovina',
-                'Bulgaria',
-                'Croatia',
-                'Cyprus',
-                'Czech Republic',
-                'Denmark',
-                'Estonia',
-                'Finland',
-                'France',
-                'Georgia',
-                'Germany',
-                'Greece',
-                'Hungary',
-                'Iceland',
-                'Ireland',
-                'Italy',
-                'Kazakhstan',
-                'Kosovo',
-                'Latvia',
-                'Liechtenstein', 
-                'Lithuania',
-                'Luxembourg',
-                'Malta',
-                'Moldova',
-                'Monaco',
-                'Montenegro',
-                'Netherlands',
-                'North Macedonia',
-                'Norway',
-                'Poland',
-                'Portugal',
-                'Romania',
-                'Russia',
-                'San Marino',
-                'Serbia',
-                'Slovakia',
-                'Slovenia',
-                'Spain',
-                'Sweden',
-                'Switzerland',
-                'Turkey',
-                'Ukraine',
-                'UK',
-                'USA',
-                'Canada',
-                'Mexico',
-                'Chile',
-                'Argentina',
-                'Brazil',
-                'Colombia', 
-                'Australia',
-                'New Zealand',
-                'Japan',
-                'South Africa'
+                "Albania",
+                "Andorra",
+                "Armenia",
+                "Austria",
+                "Azerbaijan",
+                "Belarus",
+                "Belgium",
+                "Bosnia and Herzegovina",
+                "Bulgaria",
+                "Croatia",
+                "Cyprus",
+                "Czech Republic",
+                "Denmark",
+                "Estonia",
+                "Finland",
+                "France",
+                "Georgia",
+                "Germany",
+                "Greece",
+                "Hungary",
+                "Iceland",
+                "Ireland",
+                "Italy",
+                "Kazakhstan",
+                "Kosovo",
+                "Latvia",
+                "Liechtenstein",
+                "Lithuania",
+                "Luxembourg",
+                "Malta",
+                "Moldova",
+                "Monaco",
+                "Montenegro",
+                "Netherlands",
+                "North Macedonia",
+                "Norway",
+                "Poland",
+                "Portugal",
+                "Romania",
+                "Russia",
+                "San Marino",
+                "Serbia",
+                "Slovakia",
+                "Slovenia",
+                "Spain",
+                "Sweden",
+                "Switzerland",
+                "Turkey",
+                "Ukraine",
+                "UK",
+                "USA",
+                "Canada",
+                "Mexico",
+                "Chile",
+                "Argentina",
+                "Brazil",
+                "Colombia",
+                "Australia",
+                "New Zealand",
+                "Japan",
+                "South Africa"
             ]
+        };
+    },
+    methods: {
+        onSubmit() {
+            const formData = {
+                email: this.email,
+                age: this.age,
+                password: this.password,
+                confirmPassword: this.confirmPassword,
+                roles: this.roles,
+                country: this.country,
+                terms: this.terms
+            };
+            console.log(formData);
+            this.$store.dispatch("register", formData);
         }
     }
-}
+};
 </script>
