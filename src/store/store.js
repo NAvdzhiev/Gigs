@@ -98,7 +98,7 @@ export default new Vuex.Store({
       localStorage.removeItem('expirationDate')
       localStorage.removeItem('token')
       localStorage.removeItem('userId')
-      router.replace('/signin')
+      router.replace('/login')
     },
     storeUser ({state}, userData) {
       if (!state.idToken) {
@@ -137,6 +137,3 @@ export default new Vuex.Store({
     }
   }
 })
-
-///signupNewUser?key=AIzaSyAQ9qoUPU0I3eB7nEMB51fl41FWTIVzgtI
-///verifyPassword?key=AIzaSyAQ9qoUPU0I3eB7nEMB51fl41FWTIVzgtI

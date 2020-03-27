@@ -1,17 +1,19 @@
 <template>
-  <v-app>
-    <app-header></app-header>
-    <router-view></router-view>
-  </v-app>
+    <v-app>
+        <app-header></app-header>
+        <router-view></router-view>
+    </v-app>
 </template>
 
 <script>
-import Header from './components/layout/Header.vue';
-
+import Header from "./components/layout/Header.vue";
 export default {
-  components: {
-    'app-header': Header
-  }  
-}
+    components: {
+        "app-header": Header
+    },
+    created() {
+        this.$store.dispatch("tryAutoLogin");
+    }
+};
 </script>
 

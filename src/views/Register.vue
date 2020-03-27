@@ -13,7 +13,9 @@
                                 type="email"
                                 id="email"
                                 v-model="email"
+                                @blur="$v.email.$touch()"
                             ></v-text-field>
+                            <p v-if="!$v.email.email">Please provide a valid email address.</p>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -25,7 +27,9 @@
                                 type="number"
                                 id="age"
                                 v-model="age"
+                                @blur="$v.age.$touch()"
                             ></v-text-field>
+                            <p v-if="!$v.age.minVal">You must be at least 18 years old.</p>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -37,7 +41,9 @@
                                 type="password"
                                 id="password"
                                 v-model="password"
+                                @blur="$v.passowrd.touch()"
                             ></v-text-field>
+                            <p v-if="!$v.password.minLen">Password must be at least 6 characters.</p>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -49,21 +55,44 @@
                                 type="password"
                                 id="confirmPassword"
                                 v-model="confirmPassword"
+                                @blur="$v.confirmPassword.touch()"
                             ></v-text-field>
+                            <p v-if="!$v.confirmPassword.sameAs">Password must match.</p>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col cols="10" md="6" class="ml-auto mr-auto pa-0">
-                            <v-select v-model="country" outlined dense :items="items" label="Country"></v-select>
+                            <v-text-field
+                                outlined
+                                placeholder="Profile Image URL"
+                                dense
+                                type="text"
+                                id="avatar"
+                                v-model="avatar"
+                                @blur="$v.avatar.touch()"
+                            ></v-text-field>
+                            <p v-if="!$v.avatar.url">Please, enter valid url.</p>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col cols="10" md="6" class="ml-auto mr-auto pa-0">
-                            <v-checkbox v-model="terms" :label="`Accept Terms of Usage`"></v-checkbox>
+                            <v-select
+                                v-model="country"
+                                outlined
+                                dense
+                                :items="items"
+                                label="Country"
+                            ></v-select>
                         </v-col>
                     </v-row>
                     <v-row class="justify-center">
-                        <v-btn type="submit" form="register-form" class="elevation-6" primary>Signup</v-btn>
+                        <v-btn
+                            :disabled="$v.$invalid"
+                            type="submit"
+                            form="register-form"
+                            class="elevation-6"
+                            primary
+                        >Signup</v-btn>
                     </v-row>
                 </form>
             </v-card-text>
@@ -72,6 +101,18 @@
 </template>
 
 <script>
+import {
+    required,
+    email,
+    numeric,
+    minValue,
+    minLength,
+    sameAs,
+    url
+} from "vuelidate/lib/validators";
+
+//import axios from 'axios'
+
 export default {
     data() {
         return {
@@ -80,8 +121,8 @@ export default {
             password: "",
             confirmPassword: "",
             roles: "",
+            avatar: "",
             country: "Bulgaria",
-            terms: false,
             items: [
                 "Albania",
                 "Andorra",
@@ -147,6 +188,28 @@ export default {
             ]
         };
     },
+    validations: {
+        email: {
+            required,
+            email
+        },
+        age: {
+            required,
+            numeric,
+            minVal: minValue(18)
+        },
+        password: {
+            required,
+            minLen: minLength(6)
+        },
+        confirmPassword: {
+            sameAs: sameAs("password")
+        },
+        avatar: {
+            required,
+            url
+        },
+    },
     methods: {
         onSubmit() {
             const formData = {
@@ -155,8 +218,8 @@ export default {
                 password: this.password,
                 confirmPassword: this.confirmPassword,
                 roles: this.roles,
+                avatar: this.avatar,
                 country: this.country,
-                terms: this.terms
             };
             console.log(formData);
             this.$store.dispatch("register", formData);

@@ -1,12 +1,15 @@
 import Vue from 'vue'
+import Vuelidate from 'vuelidate'
 import App from './App.vue'
+import axios from 'axios'
 
 import vuetify from './plugins/vuetify'
 import router from './router'
-import axios from 'axios'
 import store from './store/store'
 
 Vue.config.productionTip = false
+
+Vue.use(Vuelidate)
 
 axios.defaults.baseURL = "https://gigs-6a5c5.firebaseio.com/"
 axios.defaults.headers.get['Accepts'] = 'application/json'
