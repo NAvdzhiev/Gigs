@@ -9,24 +9,50 @@
                 <v-btn color="white" text>Register</v-btn>
             </router-link>
             <router-link v-if="!auth" to="/login" active-class="active">
-                <v-btn color="white" text>Login</v-btn>
+                <v-btn dark text>Login</v-btn>
             </router-link>
-            <v-btn v-if="auth" text @click="onLogout" class="logout">Logout</v-btn>
+            <router-link v-if="auth" active-class="active" to="/add-artist">
+              <v-btn text dark>Add Artist</v-btn>
+            </router-link>
+            <v-menu v-if="auth">
+                <template v-slot:activator="{ on }">
+                    <v-btn text dark v-on="on">User Data</v-btn>
+                    <!--<v-img dark v-on="on"></v-img>-->
+                </template>
+                <v-list>
+                    <v-list-item>
+                        <router-link to="/profile">
+                            <v-btn text>Profile</v-btn>
+                        </router-link>
+                    </v-list-item>
+                    <v-list-item>
+                        <router-link to="/whishlist">
+                            <v-btn text>Wishlist</v-btn>
+                        </router-link>
+                    </v-list-item>
+                    <v-list-item>
+                        <router-link to="/my-concerts">
+                            <v-btn text>Concerts</v-btn>
+                        </router-link>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
+            <v-btn v-if="auth" dark text @click="onLogout" class="logout">Logout</v-btn>
         </v-toolbar>
     </v-card>
 </template>
 
 <script>
-  export default {
+export default {
     computed: {
-      auth () {
-        return this.$store.getters.isAuthenticated
-      }
+        auth() {
+            return this.$store.getters.isAuthenticated;
+        }
     },
     methods: {
-      onLogout() {
-        this.$store.dispatch('logout')
-      }
+        onLogout() {
+            this.$store.dispatch("logout");
+        }
     }
-  }
+};
 </script>

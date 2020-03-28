@@ -123,10 +123,11 @@ export default new Vuex.Store({
             users.push(user)
           }
           console.log(users)
-          commit('storeUser', users[0])
+          commit('storeUser', users)
         })
         .catch(error => console.log(error))
-    }
+    },
+
   },
   getters: {
     user (state) {
