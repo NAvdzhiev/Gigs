@@ -22,7 +22,7 @@
                 <v-list>
                     <v-list-item>
                         <router-link to="/profile">
-                            <v-btn text>Profile</v-btn>
+                            <v-btn @click="isAdmin" text>Profile</v-btn>
                         </router-link>
                     </v-list-item>
                     <v-list-item>
@@ -51,6 +51,12 @@ export default {
                 this.$store.getters.user !== undefined
             );
         },
+
+        isAdmin() {
+            return console.log(this.$store.getters.user.roles);
+            
+            //return this.$store.getters.user.roles !== ""
+        }
     },
     methods: {
         logout() {

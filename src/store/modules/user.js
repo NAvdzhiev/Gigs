@@ -47,7 +47,7 @@ import router from '../../router';
     const getters = {
         user (state) {
             return state.user
-        }
+        },
     };
 
     export default {

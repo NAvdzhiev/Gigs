@@ -62,7 +62,6 @@ export default {
             name: "",
             imageUrl: "",
             description: "",
-            gigs: []
         };
     },
     validations: {
@@ -85,7 +84,6 @@ export default {
                 name: this.name,
                 description: this.description,
                 imageUrl: this.imageUrl,
-                gigs: this.gigs
             };
             console.log(formData);
             this.$store.dispatch("addArtist", formData);
