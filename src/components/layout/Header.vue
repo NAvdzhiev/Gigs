@@ -22,7 +22,7 @@
                 <v-list>
                     <v-list-item>
                         <router-link to="/profile">
-                            <v-btn text>Profile</v-btn>
+                            <v-btn @click="checkRole" text>Profile</v-btn>
                         </router-link>
                     </v-list-item>
                     <v-list-item>
@@ -47,11 +47,19 @@ export default {
     computed: {
         auth() {
             return this.$store.getters.isAuthenticated;
+        },
+        
+        isAdmin() {
+            return this.$store.getters.user.roles;
         }
     },
     methods: {
         onLogout() {
             this.$store.dispatch("logout");
+        },
+        checkRole() {
+            console.log(this.$store.getters);
+              
         }
     }
 };
