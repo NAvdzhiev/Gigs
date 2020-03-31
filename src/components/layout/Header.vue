@@ -12,7 +12,7 @@
                 <v-btn dark text>Login</v-btn>
             </router-link>
             <router-link v-if="auth" active-class="active" to="/add-artist">
-              <v-btn text dark>Add Artist</v-btn>
+                <v-btn text dark>Add Artist</v-btn>
             </router-link>
             <v-menu v-if="auth">
                 <template v-slot:activator="{ on }">
@@ -22,7 +22,7 @@
                 <v-list>
                     <v-list-item>
                         <router-link to="/profile">
-                            <v-btn @click="checkRole" text>Profile</v-btn>
+                            <v-btn text>Profile</v-btn>
                         </router-link>
                     </v-list-item>
                     <v-list-item>
@@ -37,7 +37,7 @@
                     </v-list-item>
                 </v-list>
             </v-menu>
-            <v-btn v-if="auth" dark text @click="onLogout" class="logout">Logout</v-btn>
+            <v-btn @click="logout" v-if="auth" dark text class="logout">Logout</v-btn>
         </v-toolbar>
     </v-card>
 </template>
@@ -46,20 +46,15 @@
 export default {
     computed: {
         auth() {
-            return this.$store.getters.isAuthenticated;
+            return (
+                this.$store.getters.user !== null &&
+                this.$store.getters.user !== undefined
+            );
         },
-        
-        isAdmin() {
-            return this.$store.getters.user.roles;
-        }
     },
     methods: {
-        onLogout() {
-            this.$store.dispatch("logout");
-        },
-        checkRole() {
-            console.log(this.$store.getters);
-              
+        logout() {
+            this.$store.dispatch('logout');
         }
     }
 };

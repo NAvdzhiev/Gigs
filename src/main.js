@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
 import App from './App.vue'
-import axios from 'axios'
+import * as firebase from 'firebase'
 
 import vuetify from './plugins/vuetify'
 import router from './router'
@@ -11,24 +11,21 @@ Vue.config.productionTip = false
 
 Vue.use(Vuelidate)
 
-axios.defaults.baseURL = "https://gigs-6a5c5.firebaseio.com/"
-axios.defaults.headers.get['Accepts'] = 'application/json'
-
-const reqInterceptor = axios.interceptors.request.use(config => {
-  console.log('Request Interceptor', config)
-  return config
-})
-const resInterceptor = axios.interceptors.response.use(res => {
-  console.log('Response Interceptor', res)
-  return res
-})
-
-axios.interceptors.request.eject(reqInterceptor)
-axios.interceptors.response.eject(resInterceptor)
-
 new Vue({
   vuetify,
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  created() {
+    firebase.initializeApp({
+      apiKey: "AIzaSyBOY3iOKPgY9EMjt_VEOqi-G0rQn-R-Gqs",
+      authDomain: "gigs-bf1c6.firebaseapp.com",
+      databaseURL: "https://gigs-bf1c6.firebaseio.com",
+      projectId: "gigs-bf1c6",
+      storageBucket: "gigs-bf1c6.appspot.com",
+      messagingSenderId: "606506903763",
+      appId: "1:606506903763:web:77405e0d7662646fd18c26",
+      measurementId: "G-2RB4XBVT94"
+    })
+  }
 }).$mount('#app')

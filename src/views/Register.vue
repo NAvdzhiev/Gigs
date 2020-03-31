@@ -67,11 +67,11 @@
                                 placeholder="Profile Image URL"
                                 dense
                                 type="text"
-                                id="avatar"
-                                v-model="avatar"
-                                @blur="$v.avatar.touch()"
+                                id="imageUrl"
+                                v-model="imageUrl"
+                                @blur="$v.imageUrl.touch()"
                             ></v-text-field>
-                            <p v-if="!$v.avatar.url">Please, enter valid url.</p>
+                            <p v-if="!$v.imageUrl.url">Please, enter valid url.</p>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -111,8 +111,6 @@ import {
     url
 } from "vuelidate/lib/validators";
 
-//import axios from 'axios'
-
 export default {
     data() {
         return {
@@ -121,7 +119,7 @@ export default {
             password: "",
             confirmPassword: "",
             roles: "",
-            avatar: "",
+            imageUrl: "",
             country: "Bulgaria",
             items: [
                 "Albania",
@@ -205,7 +203,7 @@ export default {
         confirmPassword: {
             sameAs: sameAs("password")
         },
-        avatar: {
+        imageUrl: {
             required,
             url
         },
@@ -218,7 +216,7 @@ export default {
                 password: this.password,
                 confirmPassword: this.confirmPassword,
                 roles: this.roles,
-                avatar: this.avatar,
+                imageUrl: this.imageUrl,
                 country: this.country,
             };
             console.log(formData);

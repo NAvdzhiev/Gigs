@@ -1,144 +1,58 @@
-import axios from '../../axios-auth'
-import globalAxios from 'axios'
-
-import router from '../../router'
+import * as firebase from 'firebase';
+import router from '../../router';
 
 
-const state = {
-    idToken: null,
-    userId: null,
-    user: null
-}
- 
-const mutations = {
-    authUser(state, userData) {
-        state.idToken = userData.token
-        state.userId = userData.userId
-    },
-    storeUser(state, user) {
-        state.user = user
-    },
-    clearAuthData(state) {
-        state.idToken = null
-        state.userId = null
-    }
-}
-const actions = {
-    setLogoutTimer({ commit }, expirationTime) {
-        setTimeout(() => {
-            commit('clearAuthData')
-        }, expirationTime * 1000)
-    },
-    register({ commit, dispatch }, authData) {
-        axios.post('/accounts:signUp?key=AIzaSyAQ9qoUPU0I3eB7nEMB51fl41FWTIVzgtI', {
-            email: authData.email,
-            password: authData.password,
-            returnSecureToken: true
-        })
-            .then(res => {
-                console.log(res)
-                commit('authUser', {
-                    token: res.data.idToken,
-                    userId: res.data.localId
-                })
-                const now = new Date()
-                const expirationDate = new Date(now.getTime() + res.data.expiresIn * 1000)
-                localStorage.setItem('token', res.data.idToken)
-                localStorage.setItem('userId', res.data.localId)
-                localStorage.setItem('expirationDate', expirationDate)
-                dispatch('storeUser', authData)
+   const state = {
+        user: null
+    };
+
+   const mutations = {
+        setUser (state, payload) {
+            state.user = payload
+        }
+    };
+
+    const actions = {
+        register({commit}, payload) {
+            firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+            .then(user => {
+                const newUser = {
+                    id: user.uid,
+                    gigs: [],
+                }
+                commit('setUser', newUser)
                 router.replace('/login')
-                dispatch('setLogoutTimer', res.data.expiresIn)
             })
-            .catch(error => console.log(error))
-    },
-    login({ commit, dispatch }, authData) {
-        axios.post('/accounts:signInWithPassword?key=AIzaSyAQ9qoUPU0I3eB7nEMB51fl41FWTIVzgtI', {
-            email: authData.email,
-            password: authData.password,
-            returnSecureToken: true
-        })
-            .then(res => {
-                console.log(res)
-                const now = new Date()
-                const expirationDate = new Date(now.getTime() + res.data.expiresIn * 1000)
-                localStorage.setItem('token', res.data.idToken)
-                localStorage.setItem('userId', res.data.localId)
-                localStorage.setItem('expirationDate', expirationDate)
-                commit('authUser', {
-                    token: res.data.idToken,
-                    userId: res.data.localId
-                })
-                dispatch('setLogoutTimer', res.data.expiresIn)
+            .catch(err => {
+                console.log(err);
+            })
+        },
+        login({commit}, payload) {
+            firebase.auth().signInWithEmailAndPassword(payload.email, payload.password) 
+            .then(user => {
+                const newUser = {
+                    id: user.uid,
+                    gigs: []
+                }
+                commit('setUser', newUser)
                 router.replace('/')
             })
-            .catch(error => console.log(error))
-    },
-    tryAutoLogin({ commit }) {
-        const token = localStorage.getItem('token')
-        if (!token) {
-            return
+        },
+        logout({commit}) {
+            firebase.auth().signOut()
+            commit('setUser', null)
         }
-        const expirationDate = localStorage.getItem('expirationDate')
-        const now = new Date()
-        if (now >= expirationDate) {
-            return
-        }
-        const userId = localStorage.getItem('userId')
-        commit('authUser', {
-            token: token,
-            userId: userId
-        })
-    },
-    logout({ commit }) {
-        commit('clearAuthData')
-        localStorage.removeItem('expirationDate')
-        localStorage.removeItem('token')
-        localStorage.removeItem('userId')
-        router.replace('/login')
-    },
-    storeUser({ state }, userData) {
-        if (!state.idToken) {
-            return
-        }
-        globalAxios.post('/users.json' + '?auth=' + state.idToken, userData)
-            .then(res => console.log(res))
-            .catch(error => console.log(error))
-    },
-    fetchUser({ commit, state }) {
-        if (!state.idToken) {
-            return
-        }
-        globalAxios.get('/users.json' + '?auth=' + state.idToken)
-            .then(res => {
-                console.log(res)
-                const data = res.data
-                const users = []
-                for (let key in data) {
-                    const user = data[key]
-                    user.id = key
-                    users.push(user)
-                }
-                console.log(users)
-                commit('storeUser', users)
-            })
-            .catch(error => console.log(error))
-    },
-}
+    };
 
-const getters = {
-    user(state) {
-        return state.userId
-    },
-    isAuthenticated(state) {
-        return state.idToken !== null
+    const getters = {
+        user (state) {
+            return state.user
+        }
+    };
+
+    export default {
+        state,
+        mutations,
+        actions,
+        getters
     }
-}
-
-export default {
-    state,
-    mutations,
-    actions,
-    getters
-}
-
