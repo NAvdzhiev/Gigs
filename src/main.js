@@ -3,9 +3,10 @@ import Vuelidate from 'vuelidate'
 import App from './App.vue'
 import * as firebase from 'firebase'
 
+import store from './store/store'
 import vuetify from './plugins/vuetify'
 import router from './router'
-import store from './store/store'
+
 
 Vue.config.productionTip = false
 
@@ -27,5 +28,6 @@ new Vue({
       appId: "1:606506903763:web:77405e0d7662646fd18c26",
       measurementId: "G-2RB4XBVT94"
     })
+    this.$store.dispatch('listArtists')
   }
 }).$mount('#app')

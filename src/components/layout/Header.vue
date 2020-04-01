@@ -14,6 +14,9 @@
             <router-link v-if="auth" active-class="active" to="/add-artist">
                 <v-btn text dark>Add Artist</v-btn>
             </router-link>
+            <router-link v-if="auth" active-class="active" to="/artist-list">
+                <v-btn text dark>Artists</v-btn>
+            </router-link>
             <v-menu v-if="auth">
                 <template v-slot:activator="{ on }">
                     <v-btn text dark v-on="on">User Data</v-btn>

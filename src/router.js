@@ -5,6 +5,7 @@ import Home from './views/Home.vue';
 import Register from './views/Register.vue';
 import Login from './views/Login.vue';
 import AddArtist from './views/AddArtist.vue';
+import ArtistList from './views/ArtistList.vue';
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,10 @@ export const routes = [
     {
         path: '/add-artist',
         component: AddArtist
+    },
+    {
+        path: '/artist-list',
+        component: ArtistList
     }
 ]
 
