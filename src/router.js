@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+//import {store} from './store/store'
 
 import Home from './views/Home.vue';
 import Register from './views/Register.vue';
 import Login from './views/Login.vue';
 import AddArtist from './views/AddArtist.vue';
 import ArtistList from './views/ArtistList.vue';
+import ArtistDetails from './views/ArtistDetails.vue';
 
 Vue.use(VueRouter)
 
@@ -16,7 +18,7 @@ export const routes = [
     },
     {
         path: '/register',
-        component: Register
+        component: Register,
     },
     {
         path: '/login',
@@ -29,6 +31,11 @@ export const routes = [
     {
         path: '/artist-list',
         component: ArtistList
+    },
+    {
+        path: '/artist/:id',
+        props: true,
+        component: ArtistDetails
     }
 ]
 

@@ -63,13 +63,13 @@ const getters = {
             return a.name > b.name
         });
     },
-    loadedArtist(state) {
+    loadedArtist (state) {
         return (artistId) => {
-            return state.loadedArtists.find(artist => {
-                return artist.id = artistId
-            })
+          return state.artistList.find((artist) => {
+            return artist.id === artistId
+          })
         }
-    }
+      }
 };
 
 export default {

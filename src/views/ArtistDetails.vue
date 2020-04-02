@@ -1,14 +1,11 @@
 <template>
     <v-container>
-        <v-row>
-            <v-col cols="6">
-
-            </v-col>
-            <v-col cols="6">
-                <v-card>
-                    <v-img :src="artist.imageUrl"></v-img>
-                </v-card>
-            </v-col>
+        <v-row justify="center">
+            <v-card width="40%" class="elevation-6">
+                <v-img :src="artist.imageUrl"></v-img>
+                <v-card-title>{{artist.name}}</v-card-title>
+                <v-card-text>{{artist.description}}</v-card-text>
+            </v-card>
         </v-row>
     </v-container>
 </template>
@@ -18,8 +15,8 @@ export default {
     props: ['id'],
     computed: {
         artist() {
-            return this.$store.getters.loadedArtist(this.id)
+            return this.$store.getters.loadedArtist(this.id);
         }
     }
-}
+};
 </script>
