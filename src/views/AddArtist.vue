@@ -62,6 +62,7 @@ export default {
             name: "",
             imageUrl: "",
             description: "",
+            comments: [],
         };
     },
     validations: {

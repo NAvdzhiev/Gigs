@@ -1,4 +1,4 @@
-import * as firebase from 'firebase'
+import db from '../../firebaseInit'
 import router from '../../router'
 
 const state = {
@@ -6,55 +6,42 @@ const state = {
 };
 
 const mutations = {
-    setArtists(state, payload) {
-        state.artistList = payload
-    },
     addArtist(state, payload) {
         state.artistList.push(payload)
     },
 };
 
 const actions = {
-    listArtists({ commit }) {
-        firebase.database().ref('artists').once('value')
-            .then((data) => {
-                const artists = []
-                const obj = data.val()
-                for (let key in obj) {
-                    artists.push({
-                        id: key,
-                        name: obj[key].name,
-                        description: obj[key].description,
-                        imageUrl: obj[key].imageUrl,
-                    })
+    listArtists() {
+        db.collection('artists').get().then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+                const data = {
+                    'id': doc.id,
+                    'name': doc.data().name,
+                    'description': doc.data().description,
+                    'imageUrl': doc.data().imageUrl,
+                    'comments': doc.data().comments,
+                    'gigs': doc.data().gigs
                 }
-                commit('setArtists', artists)
+                state.artistList.push(data);
             })
-            .catch(err => {
-                console.log(err);
-            })
+        })
     },
-    addArtist({ commit }, payload) {
-        const artist = {
+    addArtist({commit}, payload) {
+        db.collection('artists').add({
             name: payload.name,
             description: payload.description,
             imageUrl: payload.imageUrl,
-            comments: [],
-            gigs: []
-        }
-        firebase.database().ref('artists').push(artist)
-            .then(data => {
-                const key = data.key
-                commit('addArtist', {
-                    ...artist,
-                    id: key,
-                })
-                router.replace('/');
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    },
+        })
+        .then(docRef => {
+            commit('addArtist', docRef)
+            router.replace('/artist-list')
+        })
+        .catch(err => {
+            console.log(err);
+            
+        })
+    },  
 };
 
 const getters = {
