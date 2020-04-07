@@ -15,25 +15,8 @@
                     </v-card>
                 </v-row>
                 <v-row justify="center">
-                    <form @submit.prevent="postComment" id="post-comment" class="mt-5">
-                        <v-textarea
-                            full-width
-                            outlined
-                            v-model="comment"
-                            name="comment"
-                            id="comment"
-                            placeholder="Add Review"
-                            cols="45"
-                        ></v-textarea>
-                        <v-btn type="submit" class="elevation-4" form="post-comment">Add Review</v-btn>
-                    </form>
-                    <v-row
-                        class="mt-10 mb-5"
-                        justify="center"
-                        block
-                        v-for="(comment, index) in artist.comments"
-                        :key="index"
-                    ></v-row>
+                    <app-reviews :artist="artist"></app-reviews>
+                    <app-add-review :artist="artist"></app-add-review>
                 </v-row>
             </v-col>
         </v-row>
@@ -41,17 +24,21 @@
 </template>
 
 <script>
-import db from "../../firebaseInit";
+//import db from "../../firebaseInit";
 import { required, minLength } from "vuelidate/lib/validators";
 
 import AddGigs from './Gigs/AddGigs';
 import Gigs from './Gigs/Gigs';
+import AddReview from './Reviews/AddReview';
+import Reviews from './Reviews/Reviews';
 
 export default {
     props: ["id"],
     components: {
         'app-add-gigs': AddGigs,
         'app-gigs': Gigs,
+        'app-add-review': AddReview,
+        'app-reviews': Reviews
     },
     data() {
         return {
@@ -70,20 +57,5 @@ export default {
             return this.$store.getters.loadedArtist(this.id);
         }
     },
-    methods: {
-        postComment() {
-            const formData = {
-                text: this.comment,
-                date: this.date
-            };
-
-            db.collection("artists")
-                .doc(this.id)
-                .collection("comments")
-                .add({
-                    formData
-                });
-        },
-    }
 };
 </script>

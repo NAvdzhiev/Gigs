@@ -20,7 +20,6 @@ export default {
 
         }
     },
-
     created() {
         db.collection('artists').doc(this.artist.id).collection('gigs')
         .get()
