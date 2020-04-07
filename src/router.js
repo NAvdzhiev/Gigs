@@ -5,9 +5,9 @@ import VueRouter from 'vue-router'
 import Home from './views/Home.vue';
 import Register from './views/Register.vue';
 import Login from './views/Login.vue';
-import AddArtist from './views/AddArtist.vue';
-import ArtistList from './views/ArtistList.vue';
-import ArtistDetails from './views/ArtistDetails.vue';
+import AddArtist from './views/Artist/AddArtist.vue';
+import ArtistList from './views/Artist/ArtistList.vue';
+import ArtistDetails from './views/Artist/ArtistDetails.vue';
 
 Vue.use(VueRouter)
 

@@ -3,29 +3,8 @@
         <v-row>
             <v-col cols="6" class="mt-5">
                 <h1>Upcoming Gigs:</h1>
-                <h3>This artist has no upcoming gigs!</h3>
-                <v-row class="mt-5">
-                    <form @submit.prevent="addGig" id="gig-form">
-                        <v-text-field outlined text dense placeholder="Artist Name" v-model="name"></v-text-field>
-                        <v-text-field outlined text dense placeholder="Location" v-model="location"></v-text-field>
-                        <v-text-field outlined text dense placeholder="Venue" v-model="venue"></v-text-field>
-                        <v-text-field
-                            outlined
-                            text
-                            dense
-                            placeholder="Venue Image"
-                            v-model="venueImg"
-                        ></v-text-field>
-                        <v-text-field
-                            outlined
-                            number
-                            dense
-                            placeholder="Ticket Price"
-                            v-model="ticketPrice"
-                        ></v-text-field>
-                        <v-btn type="submit" form="gig-form">Add New Gig</v-btn>
-                    </form>
-                </v-row>
+                <app-gigs :artist="artist"></app-gigs>
+                <app-add-gigs :artist="artist"></app-add-gigs>
             </v-col>
             <v-col cols="6">
                 <v-row justify="center" class="mt-5">
@@ -62,18 +41,20 @@
 </template>
 
 <script>
-import db from "../firebaseInit";
+import db from "../../firebaseInit";
 import { required, minLength } from "vuelidate/lib/validators";
+
+import AddGigs from './Gigs/AddGigs';
+import Gigs from './Gigs/Gigs';
 
 export default {
     props: ["id"],
+    components: {
+        'app-add-gigs': AddGigs,
+        'app-gigs': Gigs,
+    },
     data() {
         return {
-            name: "",
-            location: "",
-            venue: "",
-            venueImg: "",
-            ticketPrice: 0,
             comment: "",
             date: Date.now()
         };
@@ -103,23 +84,6 @@ export default {
                     formData
                 });
         },
-
-        addGig() {
-            const formData = {
-                name: this.name,
-                location: this.location,
-                venue: this.venue,
-                venueImg: this.venueImg,
-                ticketPrice: this.ticketPrice
-            };
-
-            db.collection("artists")
-            .doc(this.id)
-            .collection("gigs")
-            .add({
-                formData
-            })
-        }
     }
 };
 </script>

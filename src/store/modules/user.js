@@ -35,7 +35,6 @@ const actions = {
             .then(user => {
                 const newUser = {
                     id: user.uid,
-                    gigs: []
                 }
                 commit('setUser', newUser)
                 router.replace('/')
@@ -44,6 +43,7 @@ const actions = {
     logout({ commit }) {
         firebase.auth().signOut()
         commit('setUser', null)
+        router.replace('/')
     }
 };
 

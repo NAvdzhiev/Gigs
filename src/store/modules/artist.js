@@ -27,21 +27,21 @@ const actions = {
             })
         })
     },
-    addArtist({commit}, payload) {
-        db.collection('artists').add({
+    addArtist({ commit }, payload) {
+        db.collection('artists').update({
             name: payload.name,
             description: payload.description,
             imageUrl: payload.imageUrl,
         })
-        .then(docRef => {
-            commit('addArtist', docRef)
-            router.replace('/artist-list')
-        })
-        .catch(err => {
-            console.log(err);
-            
-        })
-    },  
+            .then(docRef => {
+                commit('addArtist', docRef)
+                router.replace('/artist-list')
+            })
+            .catch(err => {
+                console.log(err);
+
+            })
+    },
 };
 
 const getters = {
@@ -50,13 +50,13 @@ const getters = {
             return a.name > b.name
         });
     },
-    loadedArtist (state) {
+    loadedArtist(state) {
         return (artistId) => {
-          return state.artistList.find((artist) => {
-            return artist.id === artistId
-          })
+            return state.artistList.find((artist) => {
+                return artist.id === artistId
+            })
         }
-      }
+    },
 };
 
 export default {
