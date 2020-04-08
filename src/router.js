@@ -36,7 +36,7 @@ export const routes = [
         path: '/artist/:id',
         props: true,
         component: ArtistDetails
-    }
+    },
 ]
 
 export default new VueRouter({mode: 'history', routes})

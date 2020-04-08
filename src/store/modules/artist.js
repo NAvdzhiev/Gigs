@@ -20,7 +20,7 @@ const actions = {
                     'name': doc.data().name,
                     'description': doc.data().description,
                     'imageUrl': doc.data().imageUrl,
-                    'comments': doc.data().comments,
+                    'reviews': doc.data().reviews,
                     'gigs': doc.data().gigs
                 }
                 state.artistList.push(data);
