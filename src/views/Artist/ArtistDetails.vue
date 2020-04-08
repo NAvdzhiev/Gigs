@@ -12,6 +12,7 @@
                         <v-img :src="artist.imageUrl"></v-img>
                         <v-card-title>{{artist.name}}</v-card-title>
                         <v-card-text>{{artist.description}}</v-card-text>
+                        <app-edit-artist :artist="artist"></app-edit-artist>
                     </v-card>
                 </v-row>
                 <v-row justify="center">
@@ -27,6 +28,7 @@
 //import db from "../../firebaseInit";
 import { required, minLength } from "vuelidate/lib/validators";
 
+import EditArtist from './EditArtist'
 import AddGigs from './Gigs/AddGigs';
 import Gigs from './Gigs/Gigs';
 import AddReview from './Reviews/AddReview';
@@ -38,7 +40,8 @@ export default {
         'app-add-gigs': AddGigs,
         'app-gigs': Gigs,
         'app-add-review': AddReview,
-        'app-reviews': Reviews
+        'app-reviews': Reviews,
+        'app-edit-artist': EditArtist
     },
     data() {
         return {

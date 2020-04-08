@@ -9,6 +9,21 @@ const mutations = {
     addArtist(state, payload) {
         state.artistList.push(payload)
     },
+
+    updateArtist (state, payload) {
+        const artist = state.artistList.find(artist => {
+          return artist.id === payload.id
+        })
+        if (payload.name) {
+          artist.name = payload.name
+        }
+        if (payload.description) {
+          artist.description = payload.description
+        }
+        if (payload.imageUrl) {
+            artist.imageUrl = payload.imageUrl
+        }
+      }
 };
 
 const actions = {
@@ -28,7 +43,7 @@ const actions = {
         })
     },
     addArtist({ commit }, payload) {
-        db.collection('artists').update({
+        db.collection('artists').set({
             name: payload.name,
             description: payload.description,
             imageUrl: payload.imageUrl,
@@ -42,6 +57,25 @@ const actions = {
 
             })
     },
+    updateArtist({commit}, payload) {
+        const updateObj = {};
+        if (payload.name) {
+            updateObj.name = payload.name
+        }
+        if (payload.description) {
+            updateObj.description = payload.description
+        }
+        if (payload.imageUrl) {
+            updateObj.imageUrl = payload.imageUrl
+        }
+        db.collection('artists').doc(payload.id).update(
+            updateObj
+        )
+        .then(() => {
+            commit('updateArtist', payload)
+            router.replace('/artist-list')
+        })
+    }
 };
 
 const getters = {

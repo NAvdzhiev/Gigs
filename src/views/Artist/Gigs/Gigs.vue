@@ -45,6 +45,7 @@ export default {
                 .doc(this.artist.id)
                 .collection("gigs")
                 .doc(id)
+                .delete()
         }
     }
 };
