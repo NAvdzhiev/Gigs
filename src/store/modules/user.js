@@ -16,17 +16,19 @@ const mutations = {
 const actions = {
     register({ commit }, payload) {
         firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
-            .then(user => {
+            .then(userCredentials => {
+                const user = userCredentials.user
                 const newUser = {
                     id: user.uid,
+                    email: user.email
                 }
-                commit('setUser', newUser)
-                router.replace('/login')
-                return db.collection('users').doc(user.uid).set({
+                commit('setUser', newUser);
+                router.replace('/login');
+                return db.collection('users').add({
+                    email: user.email,
                     age: payload.age,
-                    imageUrl: payload.imageUrl,
                     country: payload.country,
-                    gigs: []
+                    imageUrl: payload.imageUrl
                 })  
             })
     },
@@ -39,6 +41,11 @@ const actions = {
                 commit('setUser', newUser)
                 router.replace('/')
             })
+    },
+    autoLogin ({commit}, payload) {
+        commit('setUser', {
+            id: payload.uid,
+        })
     },
     logout({ commit }) {
         firebase.auth().signOut()

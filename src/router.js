@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-//import {store} from './store/store'
 
 import Home from './views/Home.vue';
 import Register from './views/Register.vue';
@@ -8,6 +7,7 @@ import Login from './views/Login.vue';
 import AddArtist from './views/Artist/AddArtist.vue';
 import ArtistList from './views/Artist/ArtistList.vue';
 import ArtistDetails from './views/Artist/ArtistDetails.vue';
+import AuthGuard from './authGuard';
 
 Vue.use(VueRouter)
 
@@ -26,7 +26,8 @@ export const routes = [
     },
     {
         path: '/add-artist',
-        component: AddArtist
+        component: AddArtist,
+        beforeEnter: AuthGuard
     },
     {
         path: '/artist-list',
@@ -39,4 +40,4 @@ export const routes = [
     },
 ]
 
-export default new VueRouter({mode: 'history', routes})
+export default new VueRouter({ mode: 'history', routes })
