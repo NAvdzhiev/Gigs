@@ -26,9 +26,10 @@ export default {
         db.collection("artists")
             .doc(this.artist.id)
             .collection("reviews")
-            .get()
-            .then(querySnapshot => {
-                querySnapshot.forEach(doc => {
+            .limit(5)
+            .onSnapshot(snapshot => {
+                this.reviews = [];
+                snapshot.forEach(doc => {
                     this.reviews.push({
                         id: doc.id,
                         text: doc.data().text,

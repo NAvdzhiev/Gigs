@@ -32,7 +32,7 @@ import AddReview from './Reviews/AddReview';
 import Reviews from './Reviews/Reviews';
 
 export default {
-    props: ["id"],
+    props: ['id'],
     components: {
         'app-add-gigs': AddGigs,
         'app-gigs': Gigs,

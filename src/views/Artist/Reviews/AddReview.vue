@@ -30,7 +30,7 @@
     </v-dialog>
 </template>
 <script>
-import db from '../../../firebaseInit'
+//import db from '../../../firebaseInit'
 import {
     minLength,
 } from "vuelidate/lib/validators";
@@ -51,13 +51,11 @@ export default {
     methods: {
         postReview() {
             this.reviewsDialog = false,
-            db.collection('artists')
-            .doc(this.artist.id)
-            .collection('reviews')
-            .add({
+            this.$store.dispatch('addReview', {
+                id: this.artist.id,
                 text: this.text,
                 date: this.date
-            });
+            })
         }
     }
 };

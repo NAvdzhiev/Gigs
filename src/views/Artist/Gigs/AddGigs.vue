@@ -86,7 +86,6 @@
     </v-dialog>
 </template>
 <script>
-import db from "../../../firebaseInit";
 import { numeric, minValue, minLength, url } from "vuelidate/lib/validators";
 
 export default {
@@ -121,17 +120,21 @@ export default {
     methods: {
         addGig() {
             this.gigsDialog = false;
-            db.collection("artists")
-                .doc(this.artist.id)
-                .collection("gigs")
-                .add({
-                    name: this.name,
-                    location: this.location,
-                    venue: this.venue,
-                    venueImg: this.venueImg,
-                    date: this.date,
-                    ticketPrice: this.ticketPrice
-                });
+            this.$store.dispatch("addGig", {
+                id: this.artist.id,
+                name: this.name,
+                location: this.location,
+                venue: this.venue,
+                venueImg: this.venueImg,
+                date: this.date,
+                ticketPrice: this.ticketPrice
+            });
+
+            this.location = "";
+            this.venue = "";
+            this.venueImg = "";
+            this.date = new Date().toISOString().substr(0, 10);
+            this.ticketPrice = 0;
         }
     }
 };
