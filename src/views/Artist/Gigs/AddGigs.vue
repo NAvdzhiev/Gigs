@@ -15,6 +15,7 @@
                             dense
                             placeholder="Location"
                             v-model="location"
+                            @blur="$v.location.touch()"
                         ></v-text-field>
                         <v-text-field
                             required
@@ -23,6 +24,7 @@
                             dense
                             placeholder="Venue"
                             v-model="venue"
+                            @blur="$v.venue.touch()"
                         ></v-text-field>
                         <v-text-field
                             required
@@ -31,8 +33,29 @@
                             dense
                             placeholder="Venue Image"
                             v-model="venueImg"
+                            @blur="$v.venueImg.touch()"
                         ></v-text-field>
-                        <v-text-field v-model="date" outlined dense></v-text-field>
+                        <v-menu
+                            ref="menu1"
+                            v-model="menu1"
+                            :close-on-content-click="false"
+                            transition="scale-transition"
+                        >
+                            <template v-slot:activator="{ on }">
+                                <v-text-field
+                                    required
+                                    outlined
+                                    dense
+                                    v-model="date"
+                                    placeholder="Date"
+                                    hint="YYYY/MM/DD format"
+                                    persistent-hint
+                                    @blur="date"
+                                    v-on="on"
+                                ></v-text-field>
+                            </template>
+                            <v-date-picker v-model="date" @input="menu1 = false" outlined dense></v-date-picker>
+                        </v-menu>
                         <v-text-field
                             required
                             outlined
@@ -40,6 +63,7 @@
                             dense
                             placeholder="Ticket Price"
                             v-model="ticketPrice"
+                            @blur="$v.ticketPrice.touch()"
                         ></v-text-field>
                         <v-row>
                             <v-col cols="5">
@@ -47,6 +71,7 @@
                             </v-col>
                             <v-col cols="5">
                                 <v-btn
+                                    :disabled="$v.$invalid"
                                     class="elevation-5"
                                     light
                                     type="submit"
@@ -62,12 +87,14 @@
 </template>
 <script>
 import db from "../../../firebaseInit";
+import { numeric, minValue, minLength, url } from "vuelidate/lib/validators";
 
 export default {
     props: ["artist"],
     data() {
         return {
             gigsDialog: false,
+            menu1: false,
             name: this.artist.name,
             location: "",
             venue: "",
@@ -75,6 +102,21 @@ export default {
             date: new Date().toISOString().substr(0, 10),
             ticketPrice: 0
         };
+    },
+    validations: {
+        location: {
+            minLen: minLength(3)
+        },
+        venue: {
+            minLen: minLength(10)
+        },
+        venueImg: {
+            url
+        },
+        ticketPrice: {
+            numeric,
+            minVal: minValue(5)
+        }
     },
     methods: {
         addGig() {

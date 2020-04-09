@@ -11,7 +11,7 @@
                     <v-card width="80%" class="elevation-6">
                         <v-img :src="artist.imageUrl"></v-img>
                         <v-card-title>{{artist.name}}</v-card-title>
-                        <v-card-text>{{artist.description}}</v-card-text>
+                        <v-card-text style="white-space: break-spaces;">{{artist.description}}</v-card-text>
                         <app-edit-artist :artist="artist" v-if="isAuthenticated && isCreator"></app-edit-artist>
                     </v-card>
                 </v-row>

@@ -15,6 +15,7 @@
                     id="review"
                     placeholder="Add Review"
                     cols="45"
+                    @blur="$v.text.touch()"
                 ></v-textarea>
             </form>
             <v-row>
@@ -30,7 +31,9 @@
 </template>
 <script>
 import db from '../../../firebaseInit'
-
+import {
+    minLength,
+} from "vuelidate/lib/validators";
 export default {
     props: ["artist"],
     data() {
@@ -39,6 +42,11 @@ export default {
             text: "",
             date: new Date().toLocaleString()
         };
+    },
+    validations: {
+        text: {
+            minLen: minLength(50)
+        }
     },
     methods: {
         postReview() {
