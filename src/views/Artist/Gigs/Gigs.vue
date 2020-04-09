@@ -24,6 +24,8 @@ export default {
         db.collection("artists")
             .doc(this.artist.id)
             .collection("gigs")
+            .orderBy('date')
+            .limit(5)
             .get()
             .then(querySnapshot => {
                 querySnapshot.forEach(doc => {

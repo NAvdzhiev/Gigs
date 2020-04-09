@@ -10,6 +10,14 @@ const mutations = {
         state.artistList.push(payload)
     },
 
+    addReview(state, payload) {
+        state.artistList.reviews.push(payload)
+    },
+
+    addGig(state, payload) {
+        state.artistList.gigs.push(payload)
+    },
+
     updateArtist(state, payload) {
         const artist = state.artistList.find(artist => {
             return artist.id === payload.id

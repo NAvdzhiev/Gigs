@@ -108,7 +108,7 @@ export default {
             minLen: minLength(3)
         },
         venue: {
-            minLen: minLength(10)
+            minLen: minLength(5)
         },
         venueImg: {
             url
