@@ -6,7 +6,7 @@
             <h4 align="center">{{gig.venue}} - {{gig.location}}</h4>
             <h4 align="center">{{gig.date}}</h4>
             <h5 align="center">Ticket Price: {{gig.ticketPrice}}$</h5>
-            <v-btn block text @click="deleteGig(gig.id)">Delete</v-btn>
+            <v-btn v-if="isAuthenticated && isCreator" block text @click="deleteGig(gig.id)">Delete</v-btn>
         </v-card>
     </v-container>
 </template>
@@ -45,7 +45,21 @@ export default {
                 .doc(this.artist.id)
                 .collection("gigs")
                 .doc(id)
-                .delete()
+                .delete();
+        }
+    },
+    computed: {
+        isAuthenticated() {
+            return (
+                this.$store.getters.user !== null &&
+                this.$store.getters.user !== undefined
+            );
+        },
+        isCreator() {
+            if (!this.isAuthenticated) {
+                return false;
+            }
+            return this.$store.getters.user.id === this.artist.creatorId;
         }
     }
 };

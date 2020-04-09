@@ -4,7 +4,7 @@
             <v-col cols="6" class="mt-5">
                 <h1>Upcoming Gigs:</h1>
                 <app-gigs :artist="artist"></app-gigs>
-                <app-add-gigs :artist="artist"></app-add-gigs>
+                <app-add-gigs :artist="artist" v-if="isAuthenticated && isCreator"></app-add-gigs>
             </v-col>
             <v-col cols="6">
                 <v-row justify="center" class="mt-5">
@@ -12,12 +12,12 @@
                         <v-img :src="artist.imageUrl"></v-img>
                         <v-card-title>{{artist.name}}</v-card-title>
                         <v-card-text>{{artist.description}}</v-card-text>
-                        <app-edit-artist :artist="artist"></app-edit-artist>
+                        <app-edit-artist :artist="artist" v-if="isAuthenticated && isCreator"></app-edit-artist>
                     </v-card>
                 </v-row>
                 <v-row justify="center">
                     <app-reviews :artist="artist"></app-reviews>
-                    <app-add-review :artist="artist"></app-add-review>
+                    <app-add-review :artist="artist" v-if="isAuthenticated"></app-add-review>
                 </v-row>
             </v-col>
         </v-row>
@@ -25,9 +25,6 @@
 </template>
 
 <script>
-//import db from "../../firebaseInit";
-import { required, minLength } from "vuelidate/lib/validators";
-
 import EditArtist from './EditArtist'
 import AddGigs from './Gigs/AddGigs';
 import Gigs from './Gigs/Gigs';
@@ -43,21 +40,18 @@ export default {
         'app-reviews': Reviews,
         'app-edit-artist': EditArtist
     },
-    data() {
-        return {
-            comment: "",
-            date: Date.now()
-        };
-    },
-    validations: {
-        comment: {
-            required,
-            minLen: minLength(20)
-        }
-    },
     computed: {
         artist() {
             return this.$store.getters.loadedArtist(this.id);
+        },
+        isAuthenticated() {
+            return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+        },
+        isCreator() {
+            if (!this.isAuthenticated) {
+                return false
+            }
+            return this.$store.getters.user.id === this.artist.creatorId
         }
     },
 };

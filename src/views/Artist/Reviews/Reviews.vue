@@ -8,7 +8,7 @@
         >
             <v-card-text>{{review.text}}</v-card-text>
             <h5 class="pl-5 pb-3">Posted on {{review.date}}</h5>
-            <v-btn @click="deleteReview(review.id)">Delete</v-btn>
+            <v-btn v-if="isAuthenticated && isCreator" @click="deleteReview(review.id)">Delete</v-btn>
         </v-card>
     </v-container>
 </template>
@@ -43,7 +43,21 @@ export default {
                 .doc(this.artist.id)
                 .collection("reviews")
                 .doc(id)
-                .delete()
+                .delete();
+        }
+    },
+    computed: {
+        isAuthenticated() {
+            return (
+                this.$store.getters.user !== null &&
+                this.$store.getters.user !== undefined
+            );
+        },
+        isCreator() {
+            if (!this.isAuthenticated) {
+                return false;
+            }
+            return this.$store.getters.user.id === this.artist.creatorId;
         }
     }
 };

@@ -10,25 +10,25 @@ const mutations = {
         state.artistList.push(payload)
     },
 
-    updateArtist (state, payload) {
+    updateArtist(state, payload) {
         const artist = state.artistList.find(artist => {
-          return artist.id === payload.id
+            return artist.id === payload.id
         })
         if (payload.name) {
-          artist.name = payload.name
+            artist.name = payload.name
         }
         if (payload.description) {
-          artist.description = payload.description
+            artist.description = payload.description
         }
         if (payload.imageUrl) {
             artist.imageUrl = payload.imageUrl
         }
-      }
+    }
 };
 
 const actions = {
     listArtists() {
-        db.collection('artists').get().then(querySnapshot => {
+        db.collection('artists').orderBy('name').limit(6).get().then(querySnapshot => {
             querySnapshot.forEach(doc => {
                 const data = {
                     'id': doc.id,
@@ -36,17 +36,19 @@ const actions = {
                     'description': doc.data().description,
                     'imageUrl': doc.data().imageUrl,
                     'reviews': doc.data().reviews,
-                    'gigs': doc.data().gigs
+                    'gigs': doc.data().gigs,
+                    'creatorId': doc.data().creatorId
                 }
                 state.artistList.push(data);
             })
         })
     },
-    addArtist({ commit }, payload) {
-        db.collection('artists').set({
+    addArtist({ commit, getters }, payload) {
+        db.collection('artists').add({
             name: payload.name,
             description: payload.description,
             imageUrl: payload.imageUrl,
+            creatorId: getters.user.id
         })
             .then(docRef => {
                 commit('addArtist', docRef)
@@ -57,7 +59,7 @@ const actions = {
 
             })
     },
-    updateArtist({commit}, payload) {
+    updateArtist({ commit }, payload) {
         const updateObj = {};
         if (payload.name) {
             updateObj.name = payload.name
@@ -71,10 +73,10 @@ const actions = {
         db.collection('artists').doc(payload.id).update(
             updateObj
         )
-        .then(() => {
-            commit('updateArtist', payload)
-            router.replace('/artist-list')
-        })
+            .then(() => {
+                commit('updateArtist', payload)
+                router.replace('/artist-list')
+            })
     }
 };
 
