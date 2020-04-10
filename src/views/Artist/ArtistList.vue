@@ -7,6 +7,7 @@
                         <v-img height="200px" :src="artist.imageUrl"></v-img>
                     </router-link>
                     <v-card-title>{{ artist.name }}</v-card-title>
+                    <v-btn @click="trackArtist(artist)">Track Artist</v-btn>
                 </v-card>
             </v-col>
         </v-row>
@@ -14,10 +15,27 @@
 </template>
 
 <script>
+import db from '../../firebaseInit';
 export default {
     computed: {
         artists() {
             return this.$store.getters.loadedArtists;
+        },
+        user() {
+            return this.$store.getters.user.id;
+        }
+    },
+    methods: {
+        trackArtist(artist) {
+           db.collection('users')
+           .doc(this.user)
+           .collection('whishlist')
+           .doc(artist.id)
+           .set({
+               name: artist.name,
+               imageUrl: artist.imageUrl
+           })
+           
         }
     }
 };

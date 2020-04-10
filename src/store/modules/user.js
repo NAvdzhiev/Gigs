@@ -4,13 +4,13 @@ import router from '../../router';
 
 
 const state = {
-    user: null
+    user: null,
 };
 
 const mutations = {
     setUser(state, payload) {
         state.user = payload
-    }
+    },
 };
 
 const actions = {
@@ -24,12 +24,12 @@ const actions = {
                 }
                 commit('setUser', newUser);
                 router.replace('/login');
-                return db.collection('users').add({
+                return db.collection('users').doc(user.uid).set({
                     email: user.email,
                     age: payload.age,
                     country: payload.country,
                     imageUrl: payload.imageUrl
-                })  
+                })
             })
     },
     login({ commit }, payload) {
@@ -37,12 +37,13 @@ const actions = {
             .then(user => {
                 const newUser = {
                     id: user.uid,
+                    whishlist: []
                 }
                 commit('setUser', newUser)
                 router.replace('/')
             })
     },
-    autoLogin ({commit}, payload) {
+    autoLogin({ commit }, payload) {
         commit('setUser', {
             id: payload.uid,
         })

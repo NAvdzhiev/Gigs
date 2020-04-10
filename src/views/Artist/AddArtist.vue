@@ -7,6 +7,7 @@
                     <v-row>
                         <v-col cols="10" md="6" class="ml-auto mr-auto pa-0">
                             <v-text-field
+                                required
                                 outlined
                                 dense
                                 v-model="name"
@@ -19,6 +20,7 @@
                     <v-row>
                         <v-col cols="10" md="6" class="ml-auto mr-auto pa-0">
                             <v-textarea
+                                required
                                 outlined
                                 dense
                                 v-model="description"
@@ -30,6 +32,7 @@
                     <v-row>
                         <v-col cols="10" md="6" class="ml-auto mr-auto pa-0">
                             <v-text-field
+                                required
                                 outlined
                                 dense
                                 v-model="imageUrl"
@@ -55,27 +58,23 @@
 </template>
 
 <script>
-import { required, url, minLength } from "vuelidate/lib/validators";
+import {url, minLength } from "vuelidate/lib/validators";
 export default {
     data() {
         return {
             name: "",
             imageUrl: "",
             description: "",
-            comments: [],
         };
     },
     validations: {
         name: {
-            required,
             minLen: minLength(2)
         },
         description: {
-            required,
             minLen: minLength(50)
         },
         imageUrl: {
-            required,
             url
         }
     },

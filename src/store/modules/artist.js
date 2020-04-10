@@ -49,10 +49,7 @@ const actions = {
                     creatorId: doc.data().creatorId
                 })
             })
-        })
-        .catch(err => {
-            console.log(err);
-        })
+        });
     },
     addArtist({ commit, getters }, payload) {
         db.collection('artists').add({

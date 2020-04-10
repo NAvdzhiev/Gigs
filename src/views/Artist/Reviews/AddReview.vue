@@ -55,7 +55,8 @@ export default {
                 id: this.artist.id,
                 text: this.text,
                 date: this.date
-            })
+            });
+            this.text = ""
         }
     }
 };

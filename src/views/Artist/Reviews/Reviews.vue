@@ -6,7 +6,7 @@
             :key="review.id"
             class="ml-auto mr-auto mt-10"
         >
-            <v-card-text>{{review.text}}</v-card-text>
+            <v-card-text style="white-space: break-spaces">{{review.text}}</v-card-text>
             <h5 class="pl-5 pb-3">Posted on {{review.date}}</h5>
             <v-btn v-if="isAuthenticated && isCreator" @click="deleteReview(review.id)">Delete</v-btn>
         </v-card>
