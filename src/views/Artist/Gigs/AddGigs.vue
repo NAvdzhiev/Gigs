@@ -1,16 +1,21 @@
 <template>
     <v-dialog width="350px" persistent v-model="gigsDialog">
         <template v-slot:activator="{on}">
-            <v-btn class="mt-5" slot="activator" v-on="on">Add New Gig</v-btn>
+            <v-btn
+                width="200px"
+                style="display: block"
+                class="mt-5 ml-auto mr-auto"
+                slot="activator"
+                v-on="on"
+            >Add New Gig</v-btn>
         </template>
         <v-card class="pa-10">
             <h2 align="center">Add New Gig</h2>
             <v-card-text>
-                <v-row class="mt-5">
+                <v-row class="mt-5 mb-5">
                     <form @submit.prevent="addGig" id="gigs-form">
                         <v-text-field
                             required
-                            outlined
                             text
                             dense
                             placeholder="Location"
@@ -19,7 +24,6 @@
                         ></v-text-field>
                         <v-text-field
                             required
-                            outlined
                             text
                             dense
                             placeholder="Venue"
@@ -28,7 +32,6 @@
                         ></v-text-field>
                         <v-text-field
                             required
-                            outlined
                             text
                             dense
                             placeholder="Venue Image"
@@ -44,7 +47,6 @@
                             <template v-slot:activator="{ on }">
                                 <v-text-field
                                     required
-                                    outlined
                                     dense
                                     v-model="date"
                                     placeholder="Date"
@@ -58,7 +60,6 @@
                         </v-menu>
                         <v-text-field
                             required
-                            outlined
                             number
                             dense
                             placeholder="Ticket Price"

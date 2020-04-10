@@ -1,15 +1,39 @@
 <template>
     <v-container>
-        <h1 align="center" v-if="this.gigs.length <= 0">There are no arists!</h1>
-        <v-card width="300px" v-for="gig in gigs" :key="gig.id" class="mt-10">
-            <v-img :src="gig.venueImg" width="300px"></v-img>
-            <h3 align="center">{{gig.name}}</h3>
-            <h4 align="center">{{gig.venue}} - {{gig.location}}</h4>
-            <h4 align="center">{{gig.date}}</h4>
-            <h5 align="center">Ticket Price: {{gig.ticketPrice}}$</h5>
-            <v-btn v-if="isAuthenticated && isCreator" block text @click="deleteGig(gig.id)">Delete</v-btn>
-            <v-btn v-if="isAuthenticated" @click="buyTicket(gig)">Buy Ticket</v-btn>
-        </v-card>
+        <h1 align="center" class="mt-10 mb-10 white--text font-weight-bold">Upcoming Gigs:</h1>
+        <h2
+            v-if="gigs.length <= 0"
+            align="center"
+            class="white--text display-2 mt-10 pt-10 pb-10 mb-10 font-weight-bold"
+        >There are no gigs!</h2>
+        <v-row>
+            <v-col cols="12" md="3" v-for="gig in gigs" :key="gig.id">
+                <v-card tile class="elevation-0" color="transparent" style="text-align: center">
+                    <v-img height="200px" :src="gig.venueImg"></v-img>
+                    <h3
+                        class="white--text mt-5 font-weight-bold"
+                        align="center"
+                    >{{ gig.venue }}</h3>
+                    <h4
+                        class="white--text font-weight-bold"
+                        align="center"
+                    >{{ gig.location }}</h4>
+                    <h5
+                        class="white--text mb-5 font-weight-bold"
+                        align="center"
+                    >{{ gig.ticketPrice }} $</h5>
+                    <v-btn
+                        class="mt-0 mb-10 font-weight-bold"
+                        color="#fb3a64"
+                        small
+                        dark
+                        width="150px"
+                        rounded
+                        @click="buyTicket(gig)"
+                    >Buy Ticket</v-btn>
+                </v-card>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 <script>

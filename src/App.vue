@@ -13,4 +13,9 @@ export default {
     }
 };
 </script>
+<style>
+    div#app {
+        background: #121421 !important
+    }
+</style>
 
