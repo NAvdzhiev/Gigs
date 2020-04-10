@@ -60,7 +60,7 @@ const actions = {
         })
             .then(docRef => {
                 commit('addArtist', docRef)
-                router.replace('/')
+                router.replace('/artist-list')
             })
             .catch(err => {
                 console.log(err);

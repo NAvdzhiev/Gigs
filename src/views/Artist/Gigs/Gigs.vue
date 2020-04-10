@@ -1,5 +1,6 @@
 <template>
     <v-container>
+        <h1 align="center" v-if="this.gigs.length <= 0">There are no arists!</h1>
         <v-card width="300px" v-for="gig in gigs" :key="gig.id" class="mt-10">
             <v-img :src="gig.venueImg" width="300px"></v-img>
             <h3 align="center">{{gig.name}}</h3>
@@ -43,25 +44,25 @@ export default {
     },
     methods: {
         deleteGig(id) {
-            db.collection('artists')
+            db.collection("artists")
                 .doc(this.artist.id)
-                .collection('gigs')
+                .collection("gigs")
                 .doc(id)
                 .delete();
         },
         buyTicket(gig) {
-            db.collection('users')
-            .doc(this.user)
-            .collection('myConcerts')
-            .doc(gig.id)
-            .set({
-                name: gig.name,
-                location: gig.location,
-                venue: gig.venue,
-                venueImg: gig.venueImg,
-                date: gig.date,
-                ticketPrice: gig.ticketPrice
-            })
+            db.collection("users")
+                .doc(this.user)
+                .collection("myConcerts")
+                .doc(gig.id)
+                .set({
+                    name: gig.name,
+                    location: gig.location,
+                    venue: gig.venue,
+                    venueImg: gig.venueImg,
+                    date: gig.date,
+                    ticketPrice: gig.ticketPrice
+                });
         }
     },
     computed: {
@@ -78,7 +79,7 @@ export default {
             return this.$store.getters.user.id === this.artist.creatorId;
         },
         user() {
-            return this.$store.getters.user.id
+            return this.$store.getters.user.id;
         }
     }
 };

@@ -1,5 +1,6 @@
 <template>
     <v-container>
+        <h1 align="center" v-if="this.reviews.length <= 0">There are no arists!</h1>
         <v-card
             width="80%"
             v-for="review in reviews"
