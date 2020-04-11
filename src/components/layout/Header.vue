@@ -2,7 +2,7 @@
     <v-card flat tile>
         <v-divider style="background-color: #fb3a64" class="pt-1"></v-divider>
         <v-toolbar color="#1b1d2f">
-            <router-link to="/" exact>
+            <router-link to="/" exact active-class="active">
                 <v-btn color="white" class="subtitle-2 font-weight-black" text large>Home</v-btn>
             </router-link>
             <v-spacer></v-spacer>
@@ -20,17 +20,17 @@
                 </template>
                 <v-list color="#1b1d2f">
                     <v-list-item>
-                        <router-link :to="'/profile/' + userId">
+                        <router-link :to="'/profile/'  + userId"  active-class="active">
                             <v-btn class="subtitle-2 font-weight-black" text dark>Profile</v-btn>
                         </router-link>
                     </v-list-item>
                     <v-list-item>
-                        <router-link :to="'/whishlist/' + userId">
+                        <router-link :to="'/whishlist/' + userId"  active-class="active">
                             <v-btn class="subtitle-2 font-weight-black" text dark>Wishlist</v-btn>
                         </router-link>
                     </v-list-item>
                     <v-list-item>
-                        <router-link :to="'/my-concerts/' + userId">
+                        <router-link :to="'/my-concerts/' + userId"  active-class="active">
                             <v-btn class="subtitle-2 font-weight-black" text dark>Concerts</v-btn>
                         </router-link>
                     </v-list-item>
@@ -96,3 +96,8 @@ export default {
     }
 };
 </script>
+<style>
+    .router-link-exact-active.active > button {
+        color: #fb3a64;
+    }
+</style>
