@@ -18,22 +18,6 @@
                         class="white--text mb-5 font-weight-bold"
                         align="center"
                     >{{ concert.ticketPrice }}$</h5>
-                    <v-btn
-                        class="mt-0 mb-5 font-weight-bold"
-                        color="#fb3a64"
-                        dark
-                        width="150px"
-                        @click="buyTicket(concert)"
-                    >Buy Ticket</v-btn>
-                    <v-btn
-                        class="mt-0 mb-10 font-weight-bold"
-                        color="error"
-                        dark
-                        block
-                        text
-                        width="150px"
-                        @click="deleteGig(concert.id)"
-                    >Delete</v-btn>
                 </v-card>
             </v-col>
         </v-row>
