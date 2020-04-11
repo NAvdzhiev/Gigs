@@ -46,17 +46,17 @@
                 </v-list>
             </v-menu>
             <router-link v-if="!auth" to="/register" active-class="active">
-                <v-btn color="white" class="subtitle-2 font-weight-black" text>Register</v-btn>
+                <v-btn dark class="subtitle-2 font-weight-black" text>Register</v-btn>
             </router-link>
             <router-link v-if="!auth" to="/login" active-class="active">
-                <v-btn color="white" text class="subtitle-2 font-weight-black">Login</v-btn>
+                <v-btn dark text class="subtitle-2 font-weight-black">Login</v-btn>
             </router-link>
         </v-toolbar>
     </v-card>
 </template>
 
 <script>
-import db from "../../firebaseInit";
+import db from "../firebaseInit";
 export default {
     computed: {
         auth() {

@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Home from './views/Home.vue';
-import Register from './views/Register.vue';
-import Login from './views/Login.vue';
-import AddArtist from './views/Artist/AddArtist.vue';
-import ArtistList from './views/Artist/ArtistList.vue';
-import ArtistDetails from './views/Artist/ArtistDetails.vue';
-import Profile from './views/User/Profile.vue';
-import Whishlist from './views/User/Whishlist.vue';
-import Concerts from './views/User/Concerts.vue';
+import Home from './components/Home.vue';
+import Register from './components/Register.vue';
+import Login from './components/Login.vue';
+import AddArtist from './components/Artist/AddArtist.vue';
+import ArtistList from './components/Artist/ArtistList.vue';
+import ArtistDetails from './components/Artist/ArtistDetails.vue';
+import Profile from './components/User/Profile.vue';
+import Whishlist from './components/User/Whishlist.vue';
+import Concerts from './components/User/Concerts.vue';
 import AuthGuard from './authGuard';
 
 Vue.use(VueRouter)
@@ -17,7 +17,7 @@ Vue.use(VueRouter)
 export const routes = [
     {
         path: '/',
-        component: Home
+        component: Home,
     },
     {
         path: '/register',
@@ -44,17 +44,24 @@ export const routes = [
     {
         path: '/profile/:id',
         props: true,
-        component: Profile
+        component: Profile,
+        beforeEnter: AuthGuard
     },
     {
         path: '/whishlist/:id',
         props: true,
-        component: Whishlist
+        component: Whishlist,
+        beforeEnter: AuthGuard
     },
     {
         path: '/my-concerts/:id',
         props: true,
-        component: Concerts
+        component: Concerts,
+        beforeEnter: AuthGuard
+    },
+    {
+        path: '*',
+        redirect: '/'
     }
 ]
 
