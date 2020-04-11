@@ -12,7 +12,7 @@
                     <h3
                         class="white--text mt-5 font-weight-bold"
                         align="center"
-                    >{{ gconcertig.venue }}</h3>
+                    >{{ concert.venue }}</h3>
                     <h4 class="white--text font-weight-bold" align="center">{{ concert.location }}</h4>
                     <h5
                         class="white--text mb-5 font-weight-bold"
