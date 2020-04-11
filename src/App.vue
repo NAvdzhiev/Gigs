@@ -9,13 +9,13 @@
 import Header from "./components/layout/Header.vue";
 export default {
     components: {
-        "app-header": Header
+        "app-header": Header,
     }
 };
 </script>
 <style>
     div#app {
-        background: #121421 !important
+        background: #06062a !important
     }
 </style>
 

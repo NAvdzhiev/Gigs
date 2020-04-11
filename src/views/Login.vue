@@ -7,8 +7,8 @@
                     <v-row>
                         <v-col cols="10" md="6" class="ml-auto mr-auto pa-0">
                             <v-text-field
-                                dark
                                 required
+                                dark
                                 placeholder="Email"
                                 dense
                                 type="email"

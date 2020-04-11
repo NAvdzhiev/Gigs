@@ -10,7 +10,7 @@
                                     <v-img :src="artist.imageUrl" height="350px"></v-img>
                                 </v-col>
                                 <v-col
-                                    style="background: #1a1c45"
+                                    style="background: #0c0e38"
                                     cols="12"
                                     md
                                     class="pt-10 pl-5 pr-5"
@@ -35,6 +35,7 @@
                     <app-add-gigs :artist="artist" v-if="isAuthenticated && isCreator"></app-add-gigs>
                 </v-row>
                 <v-row justify="center" class="mt-10">
+                    <h1 class="white--text mt-10 mb-5">Live Reviews</h1>
                     <app-reviews :artist="artist"></app-reviews>
                     <app-add-review :artist="artist" v-if="isAuthenticated"></app-add-review>
                 </v-row>

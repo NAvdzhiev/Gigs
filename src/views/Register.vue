@@ -1,8 +1,8 @@
 <template>
-    <v-container class="mt-10">
+    <v-container class="mt-10 mb-10">
         <v-card class="elevation-7" tile color="#1a1c45">
             <v-card-text>
-                <h1 align="center" class="mt-7 mb-10 white--text font-weight-bold">Register</h1>
+                <h1 align="center" class="mt-2 mb-5 white--text font-weight-bold">Register</h1>
                 <form @submit.prevent="onSubmit" id="register-form">
                     <v-row>
                         <v-col cols="10" md="6" class="ml-auto mr-auto pa-0">
@@ -17,7 +17,7 @@
                                 color="#fb3a64"
                                 @blur="$v.email.$touch()"
                             ></v-text-field>
-                            <p v-if="!$v.email.email">Please provide a valid email address.</p>
+                            <p class="white--text" v-if="!$v.email.email">Please provide a valid email address.</p>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -34,7 +34,7 @@
                                 color="#fb3a64"
                                 @blur="$v.age.$touch()"
                             ></v-text-field>
-                            <p v-if="!$v.age.minVal">You must be at least 18 years old.</p>
+                            <p class="white--text" v-if="!$v.age.minVal">You must be at least 18 years old.</p>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -52,6 +52,7 @@
                                 @blur="$v.firstName.$touch()"
                             ></v-text-field>
                             <p
+                                class="white--text"
                                 v-if="!$v.firstName.minLen"
                             >Frist Name must be at least 3 charactes long!</p>
                         </v-col>
@@ -71,6 +72,7 @@
                                 @blur="$v.lastName.$touch()"
                             ></v-text-field>
                             <p
+                                class="white--text"
                                 v-if="!$v.lastName.minLen"
                             >Last Name must be at least 3 charactes long!</p>
                         </v-col>
@@ -88,7 +90,7 @@
                                 color="#fb3a64"
                                 @blur="$v.passowrd.touch()"
                             ></v-text-field>
-                            <p v-if="!$v.password.minLen">Password must be at least 6 characters.</p>
+                            <p class="white--text" v-if="!$v.password.minLen">Password must be at least 6 characters.</p>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -104,7 +106,7 @@
                                 color="#fb3a64"
                                 @blur="$v.confirmPassword.touch()"
                             ></v-text-field>
-                            <p v-if="!$v.confirmPassword.sameAs">Password must match.</p>
+                            <p class="white--text" v-if="!$v.confirmPassword.sameAs">Password must match.</p>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -120,7 +122,7 @@
                                 color="#fb3a64"
                                 @blur="$v.imageUrl.touch()"
                             ></v-text-field>
-                            <p v-if="!$v.imageUrl.url">Please, enter valid url.</p>
+                            <p class="white--text" v-if="!$v.imageUrl.url">Please, enter valid url.</p>
                         </v-col>
                     </v-row>
                     <v-row>

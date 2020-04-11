@@ -3,19 +3,19 @@
         <v-divider style="background-color: #fb3a64" class="pt-1"></v-divider>
         <v-toolbar color="#1b1d2f">
             <router-link to="/" exact>
-                <v-btn color="white" class="subtitle-2 font-weight-black" text large>Logo for Home</v-btn>
+                <v-btn color="white" class="subtitle-2 font-weight-black" text large>Home</v-btn>
             </router-link>
             <v-spacer></v-spacer>
             <router-link v-if="auth" active-class="active" to="/add-artist">
                 <v-btn class="subtitle-2 font-weight-black" text dark>Add Artist</v-btn>
             </router-link>
             <router-link active-class="active" to="/artist-list">
-                <v-btn text dark class="subtitle-2 font-weight-black">Artists</v-btn>
+                <v-btn text dark class="subtitle-2 font-weight-black mr-5">Artists</v-btn>
             </router-link>
             <v-menu v-if="auth">
                 <template v-slot:activator="{ on }">
-                    <v-avatar v-if="auth">
-                        <v-img :src="imageUrl" text dark v-on="on"></v-img>
+                    <v-avatar class="mr-5" v-if="auth">
+                        <v-img  :src="imageUrl" text dark v-on="on"></v-img>
                     </v-avatar>
                 </template>
                 <v-list color="#1b1d2f">

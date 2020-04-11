@@ -27,6 +27,8 @@ const actions = {
                 return db.collection('users').doc(user.uid).set({
                     email: user.email,
                     age: payload.age,
+                    firstName: payload.firstName,
+                    lastName: payload.lastName,
                     country: payload.country,
                     imageUrl: payload.imageUrl
                 })

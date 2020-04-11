@@ -10,27 +10,28 @@
             <v-col cols="12" md="3" v-for="gig in gigs" :key="gig.id">
                 <v-card tile class="elevation-0" color="transparent" style="text-align: center">
                     <v-img height="200px" :src="gig.venueImg"></v-img>
-                    <h3
-                        class="white--text mt-5 font-weight-bold"
-                        align="center"
-                    >{{ gig.venue }}</h3>
-                    <h4
-                        class="white--text font-weight-bold"
-                        align="center"
-                    >{{ gig.location }}</h4>
+                    <h3 class="white--text mt-5 font-weight-bold" align="center">{{ gig.venue }}</h3>
+                    <h4 class="white--text font-weight-bold" align="center">{{ gig.location }}</h4>
                     <h5
                         class="white--text mb-5 font-weight-bold"
                         align="center"
                     >{{ gig.ticketPrice }}$</h5>
                     <v-btn
-                        class="mt-0 mb-10 font-weight-bold"
+                        class="mt-0 mb-5 font-weight-bold"
                         color="#fb3a64"
-                        small
                         dark
                         width="150px"
-                        rounded
                         @click="buyTicket(gig)"
                     >Buy Ticket</v-btn>
+                    <v-btn
+                        class="mt-0 mb-10 font-weight-bold"
+                        color="error"
+                        dark
+                        block
+                        text
+                        width="150px"
+                        @click="deleteGig(gig.id)"
+                    >Delete</v-btn>
                 </v-card>
             </v-col>
         </v-row>

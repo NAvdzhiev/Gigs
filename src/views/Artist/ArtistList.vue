@@ -4,12 +4,12 @@
             align="center"
             class="white--text display-2 mt-10 pt-10 pb-10 mb-10 font-weight-bold"
         >Artists</h1>
+        <h1
+            v-if="this.artists.length <= 0"
+            align="center"
+            class="white--text display-2 mt-10 pt-10 pb-10 mb-10 font-weight-bold"
+        >There are no arists!</h1>
         <v-row>
-            <h1
-                align="center"
-                v-if="this.artists.length <= 0"
-                class="white--text display-2 mt-10 pt-10 pb-10 mb-10 font-weight-bold"
-            >There are no arists!</h1>
             <v-col cols="12" md="3" v-for="artist in artists" :key="artist.id">
                 <v-card elevation="0" color="transparent" style="text-align: center">
                     <router-link :to="'/artist/' + artist.id">
@@ -22,6 +22,7 @@
                         >{{ artist.name }}</h3>
                     </router-link>
                     <v-btn
+                        v-if="isAuthenticated"
                         class="mt-0 mb-10 font-weight-bold"
                         color="#fb3a64"
                         small
@@ -47,12 +48,17 @@ export default {
     computed: {
         user() {
             return this.$store.getters.user.id;
+        },
+        isAuthenticated() {
+            return (
+                this.$store.getters.user !== null &&
+                this.$store.getters.user !== undefined
+            );
         }
     },
     created() {
         db.collection("artists")
             .orderBy("name")
-            .limit(6)
             .onSnapshot(snapshot => {
                 this.artists = [];
                 snapshot.forEach(doc => {
