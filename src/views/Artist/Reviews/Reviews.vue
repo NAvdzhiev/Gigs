@@ -1,15 +1,26 @@
 <template>
     <v-container>
-        <h1 align="center" v-if="this.reviews.length <= 0">There are no arists!</h1>
+        <h1
+            align="center"
+            class="font-weight-bold white--text mt-10 mb-3"
+            v-if="this.reviews.length <= 0"
+        >There are no reviews for this artist!</h1>
         <v-card
             width="80%"
             v-for="review in reviews"
             :key="review.id"
-            class="ml-auto mr-auto mt-10"
+            class="ml-auto mr-auto mt-10 elevation-7"
+            tile
+            color="#1a1c45"
         >
-            <v-card-text style="white-space: break-spaces">{{review.text}}</v-card-text>
-            <h5 class="pl-5 pb-3">Posted on {{review.date}}</h5>
-            <v-btn v-if="isAuthenticated && isCreator" @click="deleteReview(review.id)">Delete</v-btn>
+            <v-card-text style="color: #707281;white-space: break-spaces;">{{review.text}}</v-card-text>
+            <h5 class="white--text pl-5 pb-3">Posted on {{review.date}} by {{review.author}}</h5>
+            <v-btn
+                class="ma-5"
+                color="error"
+                v-if="isAuthenticated && isCreator"
+                @click="deleteReview(review.id)"
+            >Delete</v-btn>
         </v-card>
     </v-container>
 </template>
@@ -34,6 +45,7 @@ export default {
                     this.reviews.push({
                         id: doc.id,
                         text: doc.data().text,
+                        author: doc.data().author,
                         date: doc.data().date
                     });
                 });

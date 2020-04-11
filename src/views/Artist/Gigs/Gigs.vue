@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="mt-10">
         <h1 align="center" class="mt-10 mb-10 white--text font-weight-bold">Upcoming Gigs:</h1>
         <h2
             v-if="gigs.length <= 0"
@@ -21,7 +21,7 @@
                     <h5
                         class="white--text mb-5 font-weight-bold"
                         align="center"
-                    >{{ gig.ticketPrice }} $</h5>
+                    >{{ gig.ticketPrice }}$</h5>
                     <v-btn
                         class="mt-0 mb-10 font-weight-bold"
                         color="#fb3a64"

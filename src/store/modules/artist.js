@@ -70,6 +70,7 @@ const actions = {
     addReview({ commit }, payload) {
         const reviewObj = {
             text: payload.text,
+            author: payload.author,
             date: payload.date
         };
         db.collection('artists').doc(payload.id).collection('reviews').add(

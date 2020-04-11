@@ -4,38 +4,45 @@
             <v-btn
                 width="200px"
                 style="display: block"
-                class="mt-5 ml-auto mr-auto"
+                class="mt-0 mb-10 ml-auto mr-auto"
                 slot="activator"
                 v-on="on"
+                color="success"
             >Add New Gig</v-btn>
         </template>
-        <v-card class="pa-10">
-            <h2 align="center">Add New Gig</h2>
+        <v-card class="pa-10" color="#1a1c45">
+            <h2 align="center" class="mb-10 font-weight-bold white--text">Add New Gig</h2>
             <v-card-text>
                 <v-row class="mt-5 mb-5">
                     <form @submit.prevent="addGig" id="gigs-form">
                         <v-text-field
+                            dark
                             required
                             text
                             dense
                             placeholder="Location"
                             v-model="location"
+                            color="#fb3a64"
                             @blur="$v.location.touch()"
                         ></v-text-field>
                         <v-text-field
+                            dark
                             required
                             text
                             dense
                             placeholder="Venue"
                             v-model="venue"
+                            color="#fb3a64"
                             @blur="$v.venue.touch()"
                         ></v-text-field>
                         <v-text-field
+                            dark
                             required
                             text
                             dense
                             placeholder="Venue Image"
                             v-model="venueImg"
+                            color="#fb3a64"
                             @blur="$v.venueImg.touch()"
                         ></v-text-field>
                         <v-menu
@@ -46,6 +53,7 @@
                         >
                             <template v-slot:activator="{ on }">
                                 <v-text-field
+                                    dark
                                     required
                                     dense
                                     v-model="date"
@@ -54,24 +62,29 @@
                                     persistent-hint
                                     @blur="date"
                                     v-on="on"
+                                    color="#fb3a64"
                                 ></v-text-field>
                             </template>
-                            <v-date-picker v-model="date" @input="menu1 = false" outlined dense></v-date-picker>
+                            <v-date-picker dark v-model="date" @input="menu1 = false" outlined dense></v-date-picker>
                         </v-menu>
                         <v-text-field
+                            dark
                             required
                             number
                             dense
                             placeholder="Ticket Price"
                             v-model="ticketPrice"
+                            color="#fb3a64"
                             @blur="$v.ticketPrice.touch()"
                         ></v-text-field>
                         <v-row>
                             <v-col cols="5">
-                                <v-btn class="elevation-5" @click="gigsDialog = false">Cancel</v-btn>
+                                <v-btn color="error" class="elevation-5" @click="gigsDialog = false">Cancel</v-btn>
                             </v-col>
                             <v-col cols="5">
                                 <v-btn
+                                    dark
+                                    color="success"
                                     :disabled="$v.$invalid"
                                     class="elevation-5"
                                     light
