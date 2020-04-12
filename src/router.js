@@ -8,7 +8,7 @@ import AddArtist from './components/Artist/AddArtist.vue';
 import ArtistList from './components/Artist/ArtistList.vue';
 import ArtistDetails from './components/Artist/ArtistDetails.vue';
 import Profile from './components/User/Profile.vue';
-import Whishlist from './components/User/Whishlist.vue';
+import Wishlist from './components/User/Whishlist.vue';
 import Concerts from './components/User/Concerts.vue';
 import AuthGuard from './authGuard';
 
@@ -48,9 +48,9 @@ export const routes = [
         beforeEnter: AuthGuard
     },
     {
-        path: '/whishlist/:id',
+        path: '/wishlist/:id',
         props: true,
-        component: Whishlist,
+        component: Wishlist,
         beforeEnter: AuthGuard
     },
     {

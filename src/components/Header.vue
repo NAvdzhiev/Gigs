@@ -25,7 +25,7 @@
                         </router-link>
                     </v-list-item>
                     <v-list-item>
-                        <router-link :to="'/whishlist/' + userId"  active-class="active">
+                        <router-link :to="'/wishlist/' + userId"  active-class="active">
                             <v-btn class="subtitle-2 font-weight-black" text dark>Wishlist</v-btn>
                         </router-link>
                     </v-list-item>
